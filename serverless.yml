@@ -1,0 +1,16 @@
+service: list-ec2-security-groups
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  list:
+    handler: src/handlers.list
+    events:
+      - http:
+          path: /
+          method: GET
+
+plugins:
+  - serverless-offline
