@@ -1,4 +1,4 @@
-const list = require('./handlers/list');
+const list = require("./handlers/list");
 
 module.exports = {
   list,
