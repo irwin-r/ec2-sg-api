@@ -8,6 +8,7 @@
   "main": "src/handlers/index.js",
 
   "scripts": {
+    "start:local": "serverless offline",
     "test": "mocha --config .mocharc.js src/**/*.test.js"
   },
   "dependencies": {
