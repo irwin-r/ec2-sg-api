@@ -1,0 +1,14 @@
+{
+  "name": "list-ec2-security-groups",
+  "version": "1.0.0",
+  "author": "Irwin Razaghi <irwin@razaghi.com.au>",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": "https://github.com/irwin-r/list-ec2-security-groups",
+  "main": "src/handlers.js",
+
+
+  "dependencies": {},
+
+  "devDependencies": {}
+}
