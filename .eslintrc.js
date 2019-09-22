@@ -6,7 +6,7 @@ const prettierOptions = JSON.parse(
 );
 
 module.exports = {
-  extends: ['airbnb-base', 'prettier'],
+  extends: ['airbnb-base', 'prettier', 'plugin:node/recommended'],
   plugins: ['prettier'],
   parserOptions: {
     ecmaVersion: 2018,
