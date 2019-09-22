@@ -12,9 +12,22 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  env: { mocha: true, node: true },
+
+  env: {
+    commonjs: true,
+    mocha: true,
+    node: true,
+  },
 
   rules: {
     'prettier/prettier': ['error', prettierOptions],
-  }
+  },
+
+  overrides: [{
+    files: "**/*.test.js",
+    rules: {
+      "node/no-unpublished-require": 0,
+      "node/no-missing-require": 0
+    }
+  }]
 };
