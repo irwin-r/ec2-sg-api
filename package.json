@@ -6,16 +6,16 @@
   "private": true,
   "repository": "https://github.com/irwin-r/list-ec2-security-groups",
   "main": "src/handlers/index.js",
-
   "scripts": {
     "start:local": "serverless offline",
     "test": "mocha src/**/*.test.js"
   },
-
   "dependencies": {
+    "@aws-sdk/client-ec2-node": "^0.1.0-preview.2",
+    "@middy/http-response-serializer": "^1.0.0-alpha.43",
+    "jsonapi-serializer": "^3.6.5",
     "middy": "^0.29.0"
   },
-
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.3.0",
