@@ -4,6 +4,20 @@ const {
   EC2Client,
 } = require("@aws-sdk/client-ec2-node");
 
+const generatePolicy = (principalId, effect, resource) => ({
+  principalId,
+  policyDocument: {
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Action: "execute-api:Invoke",
+        Effect: effect,
+        Resource: resource,
+      },
+    ],
+  },
+});
+
 const getRegions = async () => {
   const ec2 = new EC2Client({});
   const command = new DescribeRegionsCommand({});
@@ -57,5 +71,6 @@ const getSecurityGroups = async () => {
 };
 
 module.exports = {
+  generatePolicy,
   getSecurityGroups,
 };
