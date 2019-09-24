@@ -11,10 +11,14 @@ provider:
       Resource: "*"
 
 functions:
+  authorizer:
+    cors: true
+    handler: src/handlers.authorizer
   list:
     handler: src/handlers.list
     events:
       - http:
+          authorizer: authorizer
           path: /
           method: GET
 
