@@ -8,7 +8,7 @@
   "main": "src/handlers/index.js",
   "scripts": {
     "start:local": "serverless offline",
-    "test": "mocha src/**/*.test.js"
+    "test": "nyc mocha src/**/*.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-ec2-node": "^0.1.0-preview.2",
@@ -29,6 +29,7 @@
     "husky": ">=1",
     "lint-staged": ">=8",
     "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
     "prettier": "^1.18.2",
     "serverless-offline": "^5.11.0",
     "sinon": "^7.5.0"
