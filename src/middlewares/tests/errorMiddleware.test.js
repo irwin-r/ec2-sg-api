@@ -3,10 +3,10 @@ const sinon = require("sinon");
 
 const { randomNumber, randomString } = require("../../utils/random");
 
-const errorMiddlware = require("../errorMiddleware");
+const errorMiddleware = require("../errorMiddleware");
 
 describe("Error Middleware", () => {
-  const { onError } = errorMiddlware();
+  const { onError } = errorMiddleware();
 
   describe("when a non-http error is provided", () => {
     it("should ignore the error", () => {
