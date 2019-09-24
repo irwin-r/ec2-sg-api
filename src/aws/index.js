@@ -4,6 +4,22 @@ const {
   EC2Client,
 } = require("@aws-sdk/client-ec2-node");
 
+const flatten = require("../utils/flatten");
+
+const generatePolicy = (principalId, effect, resource) => ({
+  principalId,
+  policyDocument: {
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Action: "execute-api:Invoke",
+        Effect: effect,
+        Resource: resource,
+      },
+    ],
+  },
+});
+
 const getRegions = async () => {
   const ec2 = new EC2Client({});
   const command = new DescribeRegionsCommand({});
@@ -40,22 +56,21 @@ const getSecurityGroups = async () => {
     return null;
   }
 
-  let securityGroups = [];
-
   // Let's grab all of the SG data concurrently
-  await Promise.all(
+  const securityGroupsByRegion = await Promise.all(
     regionNames.map(async region => {
       const securityGroupsForRegion = await getSecurityGroupsForRegion(region);
 
-      if (Array.isArray(securityGroupsForRegion)) {
-        securityGroups = [...securityGroups, ...securityGroupsForRegion];
-      }
+      return Array.isArray(securityGroupsForRegion)
+        ? securityGroupsForRegion
+        : [];
     })
   );
 
-  return securityGroups;
+  return flatten(securityGroupsByRegion);
 };
 
 module.exports = {
+  generatePolicy,
   getSecurityGroups,
 };

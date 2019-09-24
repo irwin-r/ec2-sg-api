@@ -1,5 +1,4 @@
 const { Error: JSONAPIError } = require("jsonapi-serializer");
-const status = require("http-status");
 
 const onError = (handler, next) => {
   const { detail, message, statusCode } = handler.error;
@@ -11,7 +10,7 @@ const onError = (handler, next) => {
   const body = JSON.stringify(
     new JSONAPIError({
       code: statusCode,
-      detail: detail || status[`${statusCode}_MESSAGE`],
+      detail,
       title: message,
     })
   );

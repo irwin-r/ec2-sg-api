@@ -9,7 +9,7 @@ const { InternalServerError } = require("../utils/errors");
 const list = async () => {
   const securityGroups = await getSecurityGroups();
 
-  if (Array.isArray(securityGroups)) {
+  if (!Array.isArray(securityGroups)) {
     throw new InternalServerError("Unable to retrieve security groups.");
   }
 

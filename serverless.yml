@@ -3,12 +3,22 @@ service: list-ec2-security-groups
 provider:
   name: aws
   runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:DescribeRegions"
+        - "ec2:DescribeSecurityGroups"
+      Resource: "*"
 
 functions:
+  authorizer:
+    cors: true
+    handler: src/handlers.authorizer
   list:
     handler: src/handlers.list
     events:
       - http:
+          authorizer: authorizer
           path: /
           method: GET
 
