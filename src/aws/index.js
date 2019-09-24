@@ -58,16 +58,11 @@ const getSecurityGroups = async () => {
 
   // Let's grab all of the SG data concurrently
   const securityGroupsByRegion = await Promise.all(
-    regionNames.map(async region => {
-      const securityGroupsForRegion = await getSecurityGroupsForRegion(region);
-
-      return Array.isArray(securityGroupsForRegion)
-        ? securityGroupsForRegion
-        : [];
-    })
+    regionNames.map(getSecurityGroupsForRegion)
   );
 
-  return flatten(securityGroupsByRegion);
+  // We're doing Array.isArray here to filter out any potential non-array responses
+  return flatten(securityGroupsByRegion.filter(Array.isArray));
 };
 
 module.exports = {
