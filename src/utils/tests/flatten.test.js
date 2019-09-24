@@ -1,10 +1,10 @@
 const { expect } = require("chai");
 
 const flatten = require("../flatten");
-const random = require("../random");
+const { randomNumber, randomString } = require("../random");
 
 const createRandomizedArray = () =>
-  new Array(random(5, 10)).fill().map(() => random(0, 9999));
+  new Array(randomNumber(5, 10)).fill().map(() => randomNumber(0, 9999));
 
 describe("flatten", () => {
   it("should convert an array of multiple arrays into one", () => {
@@ -21,8 +21,8 @@ describe("flatten", () => {
   });
 
   it("should preserve deeply nested arrays and objects", () => {
-    const node1 = { hello: ["world"] };
-    const node2 = [{ hello: "world" }];
+    const node1 = { [randomString()]: [randomString()] };
+    const node2 = [{ [randomString()]: [randomString()] }];
 
     const nestedArray = [[node1, node2]];
 

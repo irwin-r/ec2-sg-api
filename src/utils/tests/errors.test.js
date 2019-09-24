@@ -2,11 +2,11 @@ const { expect } = require("chai");
 const status = require("http-status");
 
 const { InternalServerError } = require("../errors");
-const random = require("../random");
+const { randomString } = require("../random");
 
 describe("InternalServerErrorException", () => {
   it("should create a new Error object with the correct properties", () => {
-    const errorDetail = `I broke ${random(500, 1000)} things`;
+    const errorDetail = randomString();
 
     const error = new InternalServerError(errorDetail);
 
