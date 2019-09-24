@@ -3,6 +3,12 @@ service: list-ec2-security-groups
 provider:
   name: aws
   runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:DescribeRegions"
+        - "ec2:DescribeSecurityGroups"
+      Resource: "*"
 
 functions:
   list:
