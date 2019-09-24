@@ -21,35 +21,39 @@ const expectAttributes = (inputObject, attributes) => {
 };
 
 describe("SecurityGroup Serializer", () => {
-  it("should serialize a single security group into a JSON:API-compliant object", () => {
-    const dummyObject = createDummyInputObject();
-    const serializedObject = SecurityGroupSerializer.serialize(dummyObject);
+  describe("when a single security group is provided", () => {
+    it("should create a JSON:API-compliant data object", () => {
+      const dummyObject = createDummyInputObject();
+      const serializedObject = SecurityGroupSerializer.serialize(dummyObject);
 
-    expect(serializedObject).to.have.property("data");
-    const { data } = serializedObject;
+      expect(serializedObject).to.have.property("data");
+      const { data } = serializedObject;
 
-    expect(data.type).to.equal("security-group");
+      expect(data.type).to.equal("security-group");
 
-    expect(data).to.have.property("attributes");
-    expectAttributes(dummyObject, data.attributes);
+      expect(data).to.have.property("attributes");
+      expectAttributes(dummyObject, data.attributes);
+    });
   });
 
-  it("should serialize an array of security groups into a JSON:API-compliant object", () => {
-    const dummyObjects = new Array(randomNumber(5, 10))
-      .fill()
-      .map(createDummyInputObject);
+  describe("when an array of security groups is provided", () => {
+    it("should create a JSON:API-compliant array of data objects", () => {
+      const dummyObjects = new Array(randomNumber(5, 10))
+        .fill()
+        .map(createDummyInputObject);
 
-    const serializedObject = SecurityGroupSerializer.serialize(dummyObjects);
+      const serializedObject = SecurityGroupSerializer.serialize(dummyObjects);
 
-    expect(serializedObject).to.have.property("data");
-    const { data } = serializedObject;
+      expect(serializedObject).to.have.property("data");
+      const { data } = serializedObject;
 
-    expect(data).to.have.lengthOf(dummyObjects.length);
+      expect(data).to.have.lengthOf(dummyObjects.length);
 
-    data.forEach((row, index) => {
-      expect(row.type).to.equal("security-group");
-      expect(row).to.have.property("attributes");
-      expectAttributes(dummyObjects[index], row.attributes);
+      data.forEach((row, index) => {
+        expect(row.type).to.equal("security-group");
+        expect(row).to.have.property("attributes");
+        expectAttributes(dummyObjects[index], row.attributes);
+      });
     });
   });
 });
