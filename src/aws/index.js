@@ -3,8 +3,7 @@ const {
   DescribeSecurityGroupsCommand,
   EC2Client,
 } = require("@aws-sdk/client-ec2-node");
-
-const flatten = require("../utils/flatten");
+const flatten = require("lodash/flatten");
 
 const generatePolicy = (principalId, effect, resource) => ({
   principalId,
@@ -24,9 +23,13 @@ const getRegions = async () => {
   const ec2 = new EC2Client({});
   const command = new DescribeRegionsCommand({});
 
-  const { Regions } = (await ec2.send(command)) || {};
+  const response = await ec2.send(command);
 
-  return Regions;
+  if (!response) {
+    return null;
+  }
+
+  return response.Regions;
 };
 
 const getRegionNames = async () => {
@@ -44,9 +47,13 @@ const getSecurityGroupsForRegion = async region => {
   const ec2 = new EC2Client({ region });
   const command = new DescribeSecurityGroupsCommand({});
 
-  const { SecurityGroups } = (await ec2.send(command)) || {};
+  const response = await ec2.send(command);
 
-  return SecurityGroups;
+  if (!response) {
+    return null;
+  }
+
+  return response.SecurityGroups;
 };
 
 const getSecurityGroups = async () => {
@@ -57,9 +64,7 @@ const getSecurityGroups = async () => {
   }
 
   // Let's grab all of the SG data concurrently
-  const securityGroupsByRegion = await Promise.all(
-    regionNames.map(getSecurityGroupsForRegion)
-  );
+  const securityGroupsByRegion = await Promise.all(regionNames.map(getSecurityGroupsForRegion));
 
   // We're doing Array.isArray here to filter out any potential non-array responses
   return flatten(securityGroupsByRegion.filter(Array.isArray));
@@ -67,5 +72,7 @@ const getSecurityGroups = async () => {
 
 module.exports = {
   generatePolicy,
+  getRegions,
+  getRegionNames,
   getSecurityGroups,
 };
