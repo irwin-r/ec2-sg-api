@@ -1,18 +1,20 @@
 const { expect } = require("chai");
-const status = require("http-status");
+const faker = require("faker");
+const {
+  constants: { HTTP_STATUS_INTERNAL_SERVER_ERROR },
+} = require("http2");
 
 const { InternalServerError } = require("../errors");
-const { randomString } = require("../random");
 
 describe("InternalServerErrorException", () => {
   it("should create a new Error object with the correct properties", () => {
-    const errorDetail = randomString();
+    const errorDetail = faker.lorem.words();
 
     const error = new InternalServerError(errorDetail);
 
     expect(error.detail).to.equal(errorDetail);
-    expect(error.statusCode).to.equal(status.INTERNAL_SERVER_ERROR);
-    expect(error.message).to.equal(status[status.INTERNAL_SERVER_ERROR]);
+    expect(error.statusCode).to.equal(HTTP_STATUS_INTERNAL_SERVER_ERROR);
+    expect(error.message).to.equal("Internal Server Error");
   });
 
   it("should throw successfully", () => {
