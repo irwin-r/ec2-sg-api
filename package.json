@@ -10,6 +10,9 @@
     "start:local": "serverless offline",
     "test": "nyc mocha src/**/*.test.js"
   },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "dependencies": {
     "@aws-sdk/client-ec2-node": "^0.1.0-preview.2",
     "@middy/http-response-serializer": "^1.0.0-alpha.43",
