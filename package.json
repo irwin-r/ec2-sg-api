@@ -7,8 +7,9 @@
   "repository": "https://github.com/irwin-r/list-ec2-security-groups",
   "main": "src/handlers/index.js",
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start:local": "serverless offline",
-    "test": "nyc mocha src/**/*.test.js"
+    "test": "nyc --reporter=html --reporter=text mocha src/**/*.test.js"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.0.6",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
