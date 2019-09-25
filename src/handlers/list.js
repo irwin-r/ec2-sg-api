@@ -1,5 +1,7 @@
 const middy = require("middy");
-const status = require("http-status");
+const {
+  constants: { HTTP_STATUS_OK },
+} = require("http2");
 
 const { getSecurityGroups } = require("../aws");
 const { errorMiddleware } = require("../middlewares");
@@ -14,7 +16,7 @@ const list = async () => {
   }
 
   return {
-    statusCode: status.OK,
+    statusCode: HTTP_STATUS_OK,
     body: JSON.stringify(SecurityGroupSerializer.serialize(securityGroups)),
   };
 };
