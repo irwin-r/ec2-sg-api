@@ -1,4 +1,4 @@
-service: list-ec2-security-groups
+service: ec2-sg-api
 
 provider:
   name: aws

@@ -1,5 +1,5 @@
 {
-  "name": "list-ec2-security-groups",
+  "name": "ec2-sg-api",
   "version": "1.0.0",
   "author": "Irwin Razaghi <irwin@razaghi.com.au>",
   "license": "UNLICENSED",
