@@ -1,7 +1,6 @@
 const { expect } = require("chai");
+const faker = require("faker");
 const sinon = require("sinon");
-
-const { randomNumber, randomString } = require("../../utils/random");
 
 const errorMiddleware = require("../errorMiddleware");
 
@@ -22,9 +21,9 @@ describe("Error Middleware", () => {
     it("should provide a JSON:API error response", () => {
       const next = sinon.fake();
 
-      const detail = randomString();
-      const message = randomString();
-      const statusCode = randomNumber(100, 500);
+      const detail = faker.lorem.words();
+      const message = faker.lorem.words();
+      const statusCode = faker.random.number({ min: 100, max: 500 });
 
       const handler = { error: { detail, message, statusCode } };
 

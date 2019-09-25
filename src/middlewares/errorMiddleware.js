@@ -3,7 +3,7 @@ const { Error: JSONAPIError } = require("jsonapi-serializer");
 const onError = (handler, next) => {
   const { detail, message, statusCode } = handler.error;
 
-  if (!(statusCode && message)) {
+  if (!statusCode || !message) {
     return next(handler.error);
   }
 
