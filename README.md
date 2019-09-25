@@ -12,8 +12,8 @@
 - [x] Make the Lambda function available via an AWS API Gateway endpoint.
 - [x] Make response [JSON:API 1.0](https://jsonapi.org/format/1.0/) compatible.
 - [x] Wrap the Lambda, API Gateway endpoint, and utility module in a Serverless application. [More info](https://serverless.com/framework/docs/providers/aws/events/apigateway#configuring-endpoint-types).
-- [ ] Write a unit test for your module by mocking AWS EC2 API.
-- [ ] Get a code coverage report for your test suite.
+- [x] Write a unit test for your module by mocking AWS EC2 API.
+- [x] Get a code coverage report for your test suite.
 - [x] Secure the endpoint using a custom [API Gateway Lambda Authoriser](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
 
 ## Install
@@ -33,6 +33,28 @@ yarn start:local
 ```sh
 yarn test
 ```
+
+## Code Coverage
+
+```sh
+yarn coverage
+```
+
+File                 |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+---------------------|----------|----------|----------|----------|-------------------|
+`All files`            |      `100` |      `100` |      `100` |      `100` |                   |
+`aws`                 |      `100` |      `100` |      `100` |      `100` |                   |
+`index.js`           |      `100` |      `100` |      `100` |      `100` |                   |
+`handlers`            |      `100` |      `100` |      `100` |      `100` |                   |
+`list.js`            |      `100` |      `100` |      `100` |      `100` |                   |
+`middlewares`         |      `100` |      `100` |      `100` |      `100` |                   |
+`errorMiddleware.js` |      `100` |      `100` |      `100` |      `100` |                   |
+`index.js`           |      `100` |      `100` |      `100` |      `100` |                   |
+`serializers`         |      `100` |      `100` |      `100` |      `100` |                   |
+`index.js`          |      `100` |      `100` |      `100` |      `100` |                   |
+`security-group.js`  |      `100` |      `100` |      `100` |      `100` |                   |
+`utils`               |      `100` |      `100` |      `100` |      `100` |                   |
+`errors.js`          |      `100` |      `100` |      `100` |      `100` |                   |
 
 ## Author
 
