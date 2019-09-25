@@ -1,16 +1,8 @@
 const { expect } = require("chai");
 
-const { randomNumber, randomString } = require("../../utils/random");
+const { generateMockSecurityGroup, generateMockSecurityGroups } = require("../../aws/tests/mocks");
 
 const SecurityGroupSerializer = require("../security-group");
-
-const createDummyInputObject = () => ({
-  Description: randomString(),
-  GroupName: randomString(),
-  OwnerId: randomString(),
-  GroupId: randomString(),
-  VpcId: randomString(),
-});
 
 const expectAttributes = (inputObject, attributes) => {
   expect(attributes.description).to.equal(inputObject.Description);
@@ -23,8 +15,8 @@ const expectAttributes = (inputObject, attributes) => {
 describe("SecurityGroup Serializer", () => {
   describe("when a single security group is provided", () => {
     it("should create a JSON:API-compliant data object", () => {
-      const dummyObject = createDummyInputObject();
-      const serializedObject = SecurityGroupSerializer.serialize(dummyObject);
+      const securityGroup = generateMockSecurityGroup();
+      const serializedObject = SecurityGroupSerializer.serialize(securityGroup);
 
       expect(serializedObject).to.have.property("data");
       const { data } = serializedObject;
@@ -32,27 +24,25 @@ describe("SecurityGroup Serializer", () => {
       expect(data.type).to.equal("security-group");
 
       expect(data).to.have.property("attributes");
-      expectAttributes(dummyObject, data.attributes);
+      expectAttributes(securityGroup, data.attributes);
     });
   });
 
   describe("when an array of security groups is provided", () => {
     it("should create a JSON:API-compliant array of data objects", () => {
-      const dummyObjects = new Array(randomNumber(5, 10))
-        .fill()
-        .map(createDummyInputObject);
+      const securityGroups = generateMockSecurityGroups();
 
-      const serializedObject = SecurityGroupSerializer.serialize(dummyObjects);
+      const serializedObject = SecurityGroupSerializer.serialize(securityGroups);
 
       expect(serializedObject).to.have.property("data");
       const { data } = serializedObject;
 
-      expect(data).to.have.lengthOf(dummyObjects.length);
+      expect(data).to.have.lengthOf(securityGroups.length);
 
       data.forEach((row, index) => {
         expect(row.type).to.equal("security-group");
         expect(row).to.have.property("attributes");
-        expectAttributes(dummyObjects[index], row.attributes);
+        expectAttributes(securityGroups[index], row.attributes);
       });
     });
   });
