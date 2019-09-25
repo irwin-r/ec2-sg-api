@@ -24,10 +24,11 @@ module.exports = {
   },
 
   overrides: [{
-    files: "**/*.test.js",
+    files: "**/tests/*.js",
     rules: {
       "node/no-unpublished-require": 0,
-      "node/no-missing-require": 0
+      "node/no-missing-require": 0,
+      "import/no-extraneous-dependencies": 0
     }
   }]
 };
