@@ -13,8 +13,8 @@
   "dependencies": {
     "@aws-sdk/client-ec2-node": "^0.1.0-preview.2",
     "@middy/http-response-serializer": "^1.0.0-alpha.43",
-    "http-status": "^1.3.2",
     "jsonapi-serializer": "^3.6.5",
+    "lodash": "^4.17.15",
     "middy": "^0.29.0"
   },
   "devDependencies": {
