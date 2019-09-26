@@ -20,6 +20,6 @@ describe("InternalServerErrorException", () => {
   it("should throw successfully", () => {
     expect(() => {
       throw new InternalServerError();
-    }).to.throw();
+    }).to.throw(InternalServerError);
   });
 });

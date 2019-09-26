@@ -1,4 +1,5 @@
 const middy = require("middy");
+const { httpContentNegotiation, httpHeaderNormalizer } = require("middy/middlewares");
 const {
   constants: { HTTP_STATUS_OK },
 } = require("http2");
@@ -21,4 +22,7 @@ const list = async () => {
   };
 };
 
-module.exports = middy(list).use(errorMiddleware());
+module.exports = middy(list)
+  .use(httpHeaderNormalizer())
+  .use(httpContentNegotiation({ availableMediaTypes: ["application/vnd.api+json"] }))
+  .use(errorMiddleware());

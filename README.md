@@ -16,6 +16,18 @@
 - [x] Get a code coverage report for your test suite.
 - [x] Secure the endpoint using a custom [API Gateway Lambda Authoriser](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
 
+## How to invoke
+1. You will need to provide the `Accept` header and specify `application/vnd.api+json`.
+2. You don't need to worry about `Content-Type` as this is a `GET` endpoint and... has no content 😛
+2. You will require a valid JWT, passed in as a `Bearer` token, to invoke the API
+3. The JWT secret key will be sourced from SSM in non-local development environments
+4. For local development environments, the default JWT secret key will be set by `serverless.yml`.
+5. You can generate a local JWT using [jwt.io](https://jwt.io) and the key in `serverless.yml`, which is`CloudConformityJWTKey`.
+6. Alternatively, you can use this JWT which is only valid for the above secret key, which expires in the year 3000 😛
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cCI6MzI1MDM2ODAwMDB9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.q0_5qxJnXLfTrE9rLTXbeLu-f6vBlunsNOZ0O0RubVA
+```
+
 ## Install
 
 ```sh
@@ -40,21 +52,24 @@ yarn test
 yarn coverage
 ```
 
-File                 |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
----------------------|----------|----------|----------|----------|-------------------|
-`All files`            |      `100` |      `100` |      `100` |      `100` |                   |
-`aws`                 |      `100` |      `100` |      `100` |      `100` |                   |
-`index.js`           |      `100` |      `100` |      `100` |      `100` |                   |
-`handlers`            |      `100` |      `100` |      `100` |      `100` |                   |
-`list.js`            |      `100` |      `100` |      `100` |      `100` |                   |
-`middlewares`         |      `100` |      `100` |      `100` |      `100` |                   |
-`errorMiddleware.js` |      `100` |      `100` |      `100` |      `100` |                   |
-`index.js`           |      `100` |      `100` |      `100` |      `100` |                   |
-`serializers`         |      `100` |      `100` |      `100` |      `100` |                   |
-`index.js`          |      `100` |      `100` |      `100` |      `100` |                   |
-`security-group.js`  |      `100` |      `100` |      `100` |      `100` |                   |
-`utils`               |      `100` |      `100` |      `100` |      `100` |                   |
-`errors.js`          |      `100` |      `100` |      `100` |      `100` |                   |
+File                            |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+--------------------------------|----------|----------|----------|----------|-------------------|
+All files                       |      100 |    95.24 |      100 |      100 |                   |
+ aws                            |      100 |      100 |      100 |      100 |                   |
+  index.js                      |      100 |      100 |      100 |      100 |                   |
+ handlers                       |      100 |      100 |      100 |      100 |                   |
+  authorizer.js                 |      100 |      100 |      100 |      100 |                   |
+  list.js                       |      100 |      100 |      100 |      100 |                   |
+ middlewares                    |      100 |      100 |      100 |      100 |                   |
+  errorMiddleware.js            |      100 |      100 |      100 |      100 |                   |
+  index.js                      |      100 |      100 |      100 |      100 |                   |
+ serializers                    |      100 |      100 |      100 |      100 |                   |
+  index.js                      |      100 |      100 |      100 |      100 |                   |
+  security-group.js             |      100 |      100 |      100 |      100 |                   |
+ utils                          |      100 |       80 |      100 |      100 |                   |
+  errors.js                     |      100 |      100 |      100 |      100 |                   |
+  validateAuthorizationToken.js |      100 |       80 |      100 |      100 |                 4 |
+
 
 ## Author
 
