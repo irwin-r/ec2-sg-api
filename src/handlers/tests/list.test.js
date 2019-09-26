@@ -14,6 +14,10 @@ const list = rewire("../list.js");
 describe("List Endpoint", () => {
   let getSecurityGroupsStub;
 
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+  };
+
   before(() => {
     getSecurityGroupsStub = sinon.stub();
     // eslint-disable-next-line no-underscore-dangle
@@ -30,7 +34,7 @@ describe("List Endpoint", () => {
 
       getSecurityGroupsStub.returns(securityGroups);
 
-      list(null, null, (error, success) => {
+      list({ event: { headers } }, null, (error, success) => {
         expect(error).to.equal(null);
         expect(success.statusCode).to.equal(HTTP_STATUS_OK);
         expect(success.body).to.equal(JSON.stringify(serializedSecurityGroups));
@@ -43,9 +47,7 @@ describe("List Endpoint", () => {
     it("should return an internal server error and a JSON:API error response", done => {
       getSecurityGroupsStub.returns(undefined);
 
-      list(null, null, (error, response) => {
-        expect(response.statusCode).to.equal(HTTP_STATUS_INTERNAL_SERVER_ERROR);
-
+      list({ event: { headers } }, null, (error, response) => {
         const body = JSON.parse(response.body);
         expect(body).to.have.property("errors");
 
