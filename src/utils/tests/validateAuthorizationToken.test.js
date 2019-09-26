@@ -42,6 +42,18 @@ describe("validateAuthorizationToken", () => {
     });
   });
 
+  describe("when a non-string value is passed", () => {
+    it("should return false", () => {
+      const key = faker.internet.password();
+
+      expect(validateAuthorizationToken({}, key)).to.equal(false);
+      expect(validateAuthorizationToken([], key)).to.equal(false);
+      expect(validateAuthorizationToken(12, key)).to.equal(false);
+      expect(validateAuthorizationToken(null, key)).to.equal(false);
+      expect(validateAuthorizationToken(undefined, key)).to.equal(false);
+    });
+  });
+
   describe("when nothing is passed at all", () => {
     it("should return false", () => {
       const key = faker.internet.password();
