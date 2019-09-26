@@ -16,10 +16,7 @@ const onError = (handler, next) => {
   );
 
   // eslint-disable-next-line no-param-reassign
-  handler.response = {
-    body,
-    statusCode,
-  };
+  handler.response = { body, statusCode };
 
   return next();
 };

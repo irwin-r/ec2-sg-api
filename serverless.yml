@@ -22,8 +22,14 @@ functions:
     events:
       - http:
           authorizer: authorizer
+          cors: true
+          integration: lambda
           path: /
           method: GET
+          response:
+            headers:
+              Content-Type: 'application/vnd.api+json'
+
 
 plugins:
   - serverless-offline
