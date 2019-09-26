@@ -2,8 +2,9 @@
 const faker = require("faker");
 const times = require("lodash/times");
 
-const generateMockPrincipalId = () => faker.random.uuid();
 const generateMockEffect = () => faker.random.word();
+const generateMockMethodArn = () => faker.random.uuid();
+const generateMockPrincipalId = () => faker.random.uuid();
 const generateMockResource = () => faker.random.uuid();
 
 const generateMockPolicy = () => ({
@@ -41,6 +42,7 @@ const generateMockSecurityGroups = (
 
 module.exports = {
   generateMockEffect,
+  generateMockMethodArn,
   generateMockPolicy,
   generateMockPrincipalId,
   generateMockRegion,
