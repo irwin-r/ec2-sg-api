@@ -38,7 +38,9 @@
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
     "rewire": "^4.0.1",
+    "serverless": "^1.53.0",
     "serverless-offline": "^5.11.0",
+    "serverless-stage-manager": "^1.0.5",
     "sinon": "^7.5.0"
   }
 }

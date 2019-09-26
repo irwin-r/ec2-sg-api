@@ -2,7 +2,8 @@ service: ec2-sg-api
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs10.
+  stage: ${opt:stage,'development'}
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -14,6 +15,8 @@ functions:
   authorizer:
     cors: true
     handler: src/handlers.authorizer
+    environment:
+      JWT_KEY: ${self:custom.jwtKey.${self:provider.stage}}
   list:
     handler: src/handlers.list
     events:
@@ -24,3 +27,15 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-stage-manager
+
+custom:
+  stages:
+    - development
+    - staging
+    - production
+  jwtKey:
+    local: CloudConformityJWTKey
+    development: CloudConformityJWTKey
+    staging: ${ssm:/ec2-sg-api/staging/jwt-key} #get from ssm
+    production: ${ssm:/ec2-sg-api/prod/jwt-key} #get from ssm
